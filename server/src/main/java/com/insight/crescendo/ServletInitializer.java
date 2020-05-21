@@ -1,4 +1,4 @@
-package board;
+package com.insight.crescendo;
 
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;

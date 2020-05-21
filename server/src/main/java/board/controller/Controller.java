@@ -13,6 +13,6 @@ public class Controller {
 	@RequestMapping(value = "/test")
 	public String hello(HttpServletRequest httpServletRequest) {
 		String id = httpServletRequest.getParameter("id");
-		return "hello! " + id;
+		return "hello ! " + id;
 	}
 }

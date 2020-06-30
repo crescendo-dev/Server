@@ -2,10 +2,10 @@ HELP.md
 target/
 !.mvn/wrapper/maven-wrapper.jar
 ### test ###
-### src/main/resources/*.properties ###
+src/main/resources/*.properties 
 ### real ###
 !**/src/test/**
-!**/src/main/** 
+### !**/src/main/** ### 
 
 ### STS ###
 .apt_generated

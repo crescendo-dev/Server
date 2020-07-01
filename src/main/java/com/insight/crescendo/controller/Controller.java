@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import com.insight.crescendo.entity.account;
 import com.insight.crescendo.repository.accountRepostitory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.DigestUtils;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -41,7 +42,8 @@ public class Controller {
 
 		  account account = new account();
 		  account.setEmail(email);
-		  account.setPassword(password);
+		  String md5_pwd = DigestUtils.md5DigestAsHex(password.getBytes());
+		  account.setPassword(md5_pwd);
 		  account.setName(name);
 		  accountRepostitory.save(account);
 		  //int id = accountService.insertAccountInfo(email, password, name);

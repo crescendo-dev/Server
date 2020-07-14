@@ -5,13 +5,12 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import com.insight.crescendo.domain.signUpUrl;
 import com.insight.crescendo.entity.account;
 import com.insight.crescendo.repository.accountRepostitory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.DigestUtils;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @CrossOrigin(origins = "*")
 @RestController
@@ -33,12 +32,12 @@ public class Controller {
 		  
 		  return map;
 	  }
-	  @RequestMapping(value="/SignUp")
-	  public Map<String,Object> SignUp(HttpServletRequest httpServletRequest){
+	  @PostMapping(value="/SignUp")
+	  public Map<String,Object> SignUp(@RequestBody signUpUrl url){
 		  Map<String, Object> map = new HashMap<String, Object>();
-		  String email = httpServletRequest.getParameter("email");
-		  String password = httpServletRequest.getParameter("password");
-		  String name = httpServletRequest.getParameter("name");
+		  String email = url.getEmail();
+		  String password = url.getPassword();
+		  String name = url.getName();
 
 		  account account = new account();
 		  account.setEmail(email);

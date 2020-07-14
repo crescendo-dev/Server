@@ -29,7 +29,7 @@ public class Controller {
 		  Map<String,Object> map = new HashMap<>();
 		  String id = httpServletRequest.getParameter("id");
 		  String password = httpServletRequest.getParameter("password");
-		  
+
 		  return map;
 	  }
 	  @PostMapping(value="/SignUp")
@@ -47,7 +47,10 @@ public class Controller {
 		  accountRepostitory.save(account);
 		  //int id = accountService.insertAccountInfo(email, password, name);
 		  Long id = account.getId();
-		  map.put("id", id);
+		  if(id ==0){
+		  	map.put("code",-1);
+		  }
+		  else map.put("code", 0);
 		  return map;
 	  }
 }

@@ -57,4 +57,16 @@ public class Controller {
 		else map.put("code", 0);
 		return map;
 	}
+	@PostMapping(value="/ChangePassword")
+	public Map<String, Object> ChangePassword(@RequestBody signInUrl url){
+		Map<String,Object> map = new HashMap<>();
+		String id = url.getId();
+		String changePassword = url.getPassword();
+		String md5_pwd = DigestUtils.md5DigestAsHex(changePassword.getBytes());
+		account = accountRepostitory.findByEmail(id);
+		account.setPassword(md5_pwd);
+		accountRepostitory.save(account);
+		map.put("code",0);
+		return map;
+	}
 }

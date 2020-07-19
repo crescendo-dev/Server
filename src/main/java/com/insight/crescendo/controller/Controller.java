@@ -5,6 +5,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import com.insight.crescendo.domain.changePasswordUrl;
 import com.insight.crescendo.domain.signInUrl;
 import com.insight.crescendo.domain.signUpUrl;
 import com.insight.crescendo.entity.account;
@@ -58,13 +59,26 @@ public class Controller {
 		return map;
 	}
 	@PostMapping(value="/ChangePassword")
-	public Map<String, Object> ChangePassword(@RequestBody signInUrl url){
+	public Map<String, Object> ChangePassword(@RequestBody changePasswordUrl url){
 		Map<String,Object> map = new HashMap<>();
 		String id = url.getId();
-		String changePassword = url.getPassword();
-		String md5_pwd = DigestUtils.md5DigestAsHex(changePassword.getBytes());
+		String password = url.getPassword();
+		String changePassword = url.getNewpassword();
+
+		String md5_pwd = DigestUtils.md5DigestAsHex(password.getBytes());
+		String change_md5_pwd = DigestUtils.md5DigestAsHex(changePassword.getBytes());
+		account = accountRepostitory.findByPasswordAndEmail(md5_pwd,id);
+		account.setPassword(change_md5_pwd);
+		accountRepostitory.save(account);
+		map.put("code",0);
+		return map;
+	}
+	@PostMapping(value="/ChangeName")
+	public Map<String,Object> ChangeName(@RequestBody HashMap<String,Object> map){
+		String id = (String)map.get("id");
+		String name = (String)map.get("name");
 		account = accountRepostitory.findByEmail(id);
-		account.setPassword(md5_pwd);
+		account.setName(name);
 		accountRepostitory.save(account);
 		map.put("code",0);
 		return map;
